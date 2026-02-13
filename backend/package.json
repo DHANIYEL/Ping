@@ -4,9 +4,17 @@
   "type": "module",
   "private": true,
   "devDependencies": {
-    "@types/bun": "latest"
+    "@types/bun": "latest",
+    "@types/node": "^25.2.3"
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "dependencies": {
+    "@clerk/express": "1.7.60",
+    "cors": "2.8.5",
+    "express": "5.2.1",
+    "mongoose": "9.0.2",
+    "socket.io": "4.8.2"
   }
 }
