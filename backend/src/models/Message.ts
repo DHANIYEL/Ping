@@ -14,7 +14,7 @@ const MessageSchema = new Schema<IMessage>(
     messageId: { type: Schema.Types.ObjectId, required: true },
     chatId: { type: Schema.Types.ObjectId, required: true, ref: "Chat" },
     senderId: { type: Schema.Types.ObjectId, required: true, ref: "User" },
-    content: { type: String, required: true },
+    content: { type: String, required: true, trim: true },
   },
   {
     timestamps: true,

@@ -2,8 +2,13 @@ import app from "./src/app";
 import { connectDb } from "./src/config/database";
 const PORT = process.env.PORT || 3000;
 
-connectDb().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+connectDb()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`✅ Server is running on port ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.log("❌ Error connecting to Server", error);
+    process.exit(1);
   });
-});
