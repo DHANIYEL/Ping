@@ -1,4 +1,5 @@
 import express from "express";
+import { clerkMiddleware } from "@clerk/express";
 import authRoutes from "./routes/authRoutes";
 import chatRoutes from "./routes/chatRoutes";
 import messageRoutes from "./routes/messageRoutes";
@@ -7,6 +8,7 @@ import userRoutes from "./routes/userRoutes";
 const app = express();
 
 app.use(express.json());
+app.use(clerkMiddleware({}));
 
 app.get("/test", (req, res) => {
   res.send("Hello, world!");

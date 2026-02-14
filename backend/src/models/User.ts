@@ -5,7 +5,7 @@ export interface IUser extends Document {
   userId: mongoose.Types.ObjectId;
   username: string;
   email: string;
-  avatar?: string;
+  avatar: string;
   createdAt: Date;
   updatedAt: Date;
 }
