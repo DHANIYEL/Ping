@@ -10,9 +10,9 @@ const app = express();
 app.use(express.json());
 app.use(clerkMiddleware({}));
 
-app.get("/test", (req, res) => {
-  res.send("Hello, world!");
-});
+// app.get("/test", (req, res) => {
+//   res.send("Hello, world!");
+// });
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/chat", chatRoutes);
