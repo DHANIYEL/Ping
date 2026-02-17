@@ -1,6 +1,6 @@
 import mongoose, { Schema, type Document } from "mongoose";
 interface IChat extends Document {
-  chatid: mongoose.Types.ObjectId;
+  chatId: mongoose.Types.ObjectId;
   participantsId: mongoose.Types.ObjectId[];
   lastMessageId?: mongoose.Types.ObjectId;
   lastMessageAt?: Date;
@@ -10,7 +10,7 @@ interface IChat extends Document {
 
 const ChatSchema = new Schema<IChat>(
   {
-    chatid: { type: Schema.Types.ObjectId, required: true },
+    chatId: { type: Schema.Types.ObjectId, required: true },
     participantsId: {
       type: [Schema.Types.ObjectId],
       ref: "User",

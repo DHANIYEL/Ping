@@ -15,7 +15,7 @@ export async function getMe(
     const user = await User.findById({ userId });
 
     if (!user) return res.status(404).json({ message: "User Not Found" });
-    res.status(200).json({ user });
+    res.status(200).json({ success: true, data: user });
   } catch (error) {
     res.status(500);
     next(error);
@@ -53,7 +53,7 @@ export async function authCallback(
       //   const insertUser = await User.create(obj);
       const insertUser = true;
       if (insertUser) {
-        res.status(200).json({ user: obj });
+        res.status(200).json({ success: true, data: obj });
       }
     } else {
       res.status(500).json({ message: "User already exists" });
