@@ -43,7 +43,6 @@ export async function authCallback(
           ? `${getClerkUser.firstName} ${getClerkUser.lastName}`
           : email.split("@")[0];
       const obj = {
-        userId: new mongoose.Types.ObjectId(),
         clerkId,
         username,
         email,

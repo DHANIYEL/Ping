@@ -9,7 +9,7 @@ export async function getUsers(
 ) {
   try {
     const userId = req.userId;
-    const users = await User.find({ userId: { $ne: userId } })
+    const users = await User.find({ _id: { $ne: userId } })
       .select("username email avatar")
       .limit(20);
     res.status(200).json({ success: true, data: users });

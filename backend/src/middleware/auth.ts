@@ -1,9 +1,8 @@
 import type { Request, Response, NextFunction } from "express";
 import { getAuth, requireAuth } from "@clerk/express";
 import { User } from "../models/User";
-import type mongoose from "mongoose";
 
-export type AuthRequest = Request & { userId?: mongoose.Types.ObjectId };
+export type AuthRequest = Request & { userId?: string };
 export const protectedAuth = [
   requireAuth(),
   async (req: AuthRequest, res: Response, next: NextFunction) => {
@@ -16,7 +15,7 @@ export const protectedAuth = [
 
       const user = await User.findOne({ clerkId });
       if (!user) return res.status(404).json({ message: "User Not Found" });
-      req.userId = user.userId;
+      req.userId = user._id.toString();
       next();
     } catch (error) {
       console.log("❌ Error authenticating user in protected route", error);
