@@ -4,19 +4,22 @@ import authRoutes from "./routes/authRoutes";
 import chatRoutes from "./routes/chatRoutes";
 import messageRoutes from "./routes/messageRoutes";
 import userRoutes from "./routes/userRoutes";
+import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
 
 app.use(express.json());
 app.use(clerkMiddleware({}));
 
-app.get("/test", (req, res) => {
-  res.send("Hello, world!");
-});
+// app.get("/test", (req, res) => {
+//   res.send("Hello, world!");
+// });
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/chat", chatRoutes);
 app.use("/api/v1/message", messageRoutes);
 app.use("/api/v1/user", userRoutes);
+
+app.use(errorHandler);
 
 export default app;

@@ -1,7 +1,6 @@
 import mongoose, { Schema, type Document } from "mongoose";
 
 interface IMessage extends Document {
-  messageId: mongoose.Types.ObjectId;
   chatId: mongoose.Types.ObjectId;
   senderId: mongoose.Types.ObjectId;
   content: string;
@@ -11,7 +10,6 @@ interface IMessage extends Document {
 
 const MessageSchema = new Schema<IMessage>(
   {
-    messageId: { type: Schema.Types.ObjectId, required: true },
     chatId: { type: Schema.Types.ObjectId, required: true, ref: "Chat" },
     senderId: { type: Schema.Types.ObjectId, required: true, ref: "User" },
     content: { type: String, required: true, trim: true },
@@ -20,5 +18,6 @@ const MessageSchema = new Schema<IMessage>(
     timestamps: true,
   },
 );
+MessageSchema.index({ chatId: 1, createdAt: -1 });
 
 export const Message = mongoose.model<IMessage>("Message", MessageSchema);
