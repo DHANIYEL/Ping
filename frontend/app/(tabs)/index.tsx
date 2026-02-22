@@ -1,11 +1,14 @@
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import React from "react";
 
 const ChatTab = () => {
   return (
-    <View>
-      <Text>ChatTab</Text>
-    </View>
+    <ScrollView
+      className="bg-surface"
+      contentInsetAdjustmentBehavior="automatic"
+    >
+      <Text className="text-white">Chat </Text>
+    </ScrollView>
   );
 };
 
