@@ -5,7 +5,7 @@ const TabsLayout = () => {
   const { isSignedIn, isLoaded } = useAuth();
   if (!isLoaded) return null;
   if (!isSignedIn) return <Redirect href={"/(auth)"} />;
-  
+
   return (
     <Tabs
       screenOptions={{
