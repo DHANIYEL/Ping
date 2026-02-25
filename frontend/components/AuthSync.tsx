@@ -9,11 +9,7 @@ const AuthSync = () => {
   const hasSynced = useRef(false);
 
   useEffect(() => {
-    console.log("Looking use effect");
     if (isSignedIn && !hasSynced.current && user) {
-      console.log("Inside use effect");
-      //   console.log("isSignedIn :", isSignedIn);
-      //   console.log("user :", user);
       hasSynced.current = true;
       syncUser(undefined, {
         onSuccess: (data) => {
