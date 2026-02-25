@@ -29,6 +29,7 @@ export async function authCallback(
 ) {
   try {
     const { userId: clerkId } = getAuth(req);
+    console.log("Clerk id : ", clerkId);
     if (!clerkId) return res.status(401).json({ message: "Unauthorized" });
 
     const user = await User.findOne({ clerkId });
@@ -49,8 +50,7 @@ export async function authCallback(
         avatar: getClerkUser.imageUrl,
       };
 
-      //   const insertUser = await User.create(obj);
-      const insertUser = true;
+      const insertUser = await User.create(obj);
       if (insertUser) {
         res.status(200).json({ success: true, data: obj });
       }
