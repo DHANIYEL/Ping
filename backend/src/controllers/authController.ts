@@ -29,35 +29,43 @@ export async function authCallback(
 ) {
   try {
     const { userId: clerkId } = getAuth(req);
-    if (!clerkId) return res.status(401).json({ message: "Unauthorized" });
 
-    const user = await User.findOne({ clerkId });
+    if (!clerkId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    // Check if user already exists
+    let user = await User.findOne({ clerkId });
+
+    // If user does NOT exist, create one
     if (!user) {
-      // Get user from clerk & save in db if not found
-      const getClerkUser = await clerkClient.users.getUser(clerkId);
+      const clerkUser = await clerkClient.users.getUser(clerkId);
 
-      const email = getClerkUser.emailAddresses[0]?.emailAddress || "";
+      const email = clerkUser.emailAddresses[0]?.emailAddress || "";
 
       const username =
-        getClerkUser.firstName && getClerkUser.lastName
-          ? `${getClerkUser.firstName} ${getClerkUser.lastName}`
+        clerkUser.firstName && clerkUser.lastName
+          ? `${clerkUser.firstName} ${clerkUser.lastName}`
           : email.split("@")[0];
-      const obj = {
+
+      user = await User.create({
         clerkId,
         username,
         email,
-        avatar: getClerkUser.imageUrl,
-      };
-
-      const insertUser = await User.create(obj);
-      if (insertUser) {
-        res.status(200).json({ success: true, data: obj });
-      }
-    } else {
-      res.status(500).json({ message: "User already exists" });
+        avatar: clerkUser.imageUrl,
+      });
     }
+
+    // Always return 200
+    return res.status(200).json({
+      success: true,
+      data: user,
+    });
   } catch (error) {
-    res.status(500);
-    next(error);
+    console.error("❌ AUTH CALLBACK ERROR:", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
   }
 }
