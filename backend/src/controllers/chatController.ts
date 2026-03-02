@@ -15,13 +15,19 @@ export async function getChats(
       .populate("participantsId", "username email avatar")
       .populate("lastMessageId")
       .sort({ lastMessageAt: -1 });
-
     if (!chats) return res.status(404).json({ message: "Chats Not Found" });
 
     const formattedChats = chats.map((chat) => {
       const receiveParticipants = chat.participantsId.filter(
         (participant) => participant._id.toString() !== userId,
       );
+      const obj = {
+        chatId: chat._id.toString(),
+        participants: receiveParticipants,
+        lastMessage: chat.lastMessageId,
+        lastMessageAt: chat.lastMessageAt,
+      };
+      console.log("object = ", obj);
       return {
         chatId: chat._id.toString(),
         participants: receiveParticipants,

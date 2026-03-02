@@ -30,6 +30,7 @@ export interface ChatLastMessage {
 
 export interface Chat {
   _id: string;
+  chatId: string;
   participantId: MessageSender;
   lastMessageId: ChatLastMessage | null;
   lastMessageAt: string;
